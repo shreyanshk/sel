@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, url_for, render_template
+
 app = Flask("CourierManagement")
 
 @app.route("/")
 def welcome_page():
-  return "Welcome to VIT's courier Management System"
+  return render_template('index.html')
 
 @app.route('/track')
 def track_home():
