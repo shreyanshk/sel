@@ -26,4 +26,4 @@ def developers():
 def search_home():
     return "Here we implement search logic"
 
-app.run()
+app.run(debug=True)
