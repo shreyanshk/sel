@@ -15,6 +15,8 @@ def add():
 
 @app.route('/track')
 def track_home():
+    conn = sqlite3.connect('couriers.sqlite')
+    cursor = conn.cursor()
     return "this is where we ask user for courier id"
 
 @app.route('/track/<courierid>')
@@ -37,8 +39,5 @@ def developers():
 def search_home():
     return "Here we implement search logic"
 
-conn = sqlite3.connect('couriers.sqlite')
-cursor = conn.cursor()
-cursor.execute("select * from couriers")
-print(cursor.fetchall())
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
