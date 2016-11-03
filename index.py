@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import Flask, url_for, render_template
 import sqlite3
 
@@ -35,5 +37,8 @@ def developers():
 def search_home():
     return "Here we implement search logic"
 
-conn = sqlite3.connect('couriers.db')
+conn = sqlite3.connect('couriers.sqlite')
+cursor = conn.cursor()
+cursor.execute("select * from couriers")
+print(cursor.fetchall())
 app.run(debug=True)
