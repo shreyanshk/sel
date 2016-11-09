@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-from flask import Flask, url_for, render_template
+from flask import Flask, redirect
 from flask import Blueprint
 
-app = Flask("CourierManagement")
+app = Flask("CourierManagement", static_folder = None)
 
 from home.view import view as homeview
 app.register_blueprint(homeview)
@@ -22,6 +22,10 @@ app.register_blueprint(updateview)
 
 from devs.view import view as devsview
 app.register_blueprint(devsview)
+
+@app.route("/")
+def redirector():
+    return redirect("/home")
 
 if __name__ == "__main__":
     app.run(debug=True)
