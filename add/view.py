@@ -10,8 +10,9 @@ def add():
     if request.method == 'GET':
         return render_template('add.html')
     elif request.method == 'POST':
+        form = request.form
         conn = sqlite3.connect('./couriers.sqlite')
         cursor = conn.cursor()
-        return
-
-        return request.form['sender']
+        query = "insert into couriers values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        cursor.execute(query, form);
+        return "Entry Added!"

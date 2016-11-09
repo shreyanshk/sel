@@ -9,18 +9,28 @@ def track_home():
     elif request.method == 'POST':
         return redirect('/track/' + request.form['cid'])
 
-@view.route('/track/<cid>')
+@view.route('/track/<cid>', methods = ['GET'])
 def tracking_page(cid):
-    def find_courier(cid):
+    def find_courier(courierid):
         conn = sqlite3.connect('couriers.sqlite')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute("select * from couriers where cid = ?", cid)
-        res = cursor.fetchone()
+        cursor.execute("select * from couriers where cid = ?", [courierid])
+        res = cursor.fetchall()
         return res
     details = find_courier(cid)
-    result = []
-    for detail in details.keys():
-        value = details[detail]
-        result.append(detail + ": " + str(value) + "<br>")
-    return result
+    result = ""
+    for row in details:
+    	for detail in row.keys():
+            result += (detail + ": " + str(row[detail]))
+            result += "<br>"
+    if (len(result) == 0):
+        return "No such courier in the system"
+    else:
+        return result
+
+"""for row in res:
+	for detail in row.keys():
+		print(detail + ": " + str(row[detail]))
+    print(" ")
+"""
