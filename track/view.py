@@ -17,6 +17,7 @@ def tracking_page(cid):
         cursor = conn.cursor()
         cursor.execute("select * from couriers where cid = ?", [courierid])
         res = cursor.fetchall()
+        conn.close()
         return res
     details = find_courier(cid)
     result = ""
